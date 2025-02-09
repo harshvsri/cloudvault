@@ -79,10 +79,10 @@ export default function DriveContent({ files, folders }: ContentProps) {
                         </div>
                     </div>
                     <ul>
-                        {folders.filter(folder => folder.parent == currentFolder).map((folder) => (
+                        {folders.map((folder) => (
                             <FolderRow key={folder.id} folder={folder} handleFolderClick={handleFolderClick} />
                         ))}
-                        {files.filter(file => file.parent == currentFolder).map((file) => (
+                        {files.map((file) => (
                             <FileRow key={file.id} file={file} />
                         ))}
                     </ul>
