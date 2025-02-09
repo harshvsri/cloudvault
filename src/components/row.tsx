@@ -1,12 +1,9 @@
 import Link from 'next/link';
 import { FileIcon, Folder } from 'lucide-react';
+import type { files, folders } from "../server/db/schema";
 
 interface FileRowProps {
-    file: {
-        id: string;
-        name: string;
-        url?: string;
-    };
+    file: typeof files.$inferSelect
 }
 
 export const FileRow = ({ file }: FileRowProps) => {
@@ -29,11 +26,8 @@ export const FileRow = ({ file }: FileRowProps) => {
 
 
 interface FolderRowProps {
-    folder: {
-        id: string;
-        name: string;
-    };
-    handleFolderClick: (id: string) => void;
+    folder: typeof folders.$inferSelect
+    handleFolderClick: (id: number) => void;
 }
 
 export const FolderRow = ({ folder, handleFolderClick }: FolderRowProps) => {
