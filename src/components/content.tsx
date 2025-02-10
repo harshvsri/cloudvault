@@ -1,10 +1,9 @@
-"use client"
-
 import { Upload, ChevronRight } from "lucide-react"
 import { Button } from "~/components/ui/button"
 import { FileRow, FolderRow } from '../components/row';
 import type { files, folders } from "../server/db/schema";
 import Link from "next/link";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 interface ContentProps {
     files: typeof files.$inferSelect[];
@@ -13,11 +12,6 @@ interface ContentProps {
 }
 
 export default function DriveContent({ files, folders, parents }: ContentProps) {
-
-    const handleUpload = () => {
-        alert("Upload functionality would be implemented here")
-    }
-
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
             <div className="max-w-6xl mx-auto">
@@ -43,10 +37,21 @@ export default function DriveContent({ files, folders, parents }: ContentProps) 
                             </div>
                         ))}
                     </div>
-                    <Button onClick={handleUpload} className="bg-blue-600 text-white hover:bg-blue-700">
-                        <Upload className="mr-2" size={20} />
-                        Upload
-                    </Button>
+
+                    {/* Auth using clerk */}
+                    <div>
+                        <SignedOut>
+                            <SignInButton />
+                        </SignedOut>
+                        <SignedIn>
+                            <UserButton />
+                        </SignedIn>
+                    </div>
+
+                    {/* <Button className="bg-blue-600 text-white hover:bg-blue-700"> */}
+                    {/*     <Upload className="mr-2" size={20} /> */}
+                    {/*     Upload */}
+                    {/* </Button> */}
                 </div>
 
                 <div className="bg-gray-800 rounded-lg shadow-xl">

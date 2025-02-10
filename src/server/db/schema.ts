@@ -1,5 +1,3 @@
-import "server-only";
-
 import { int, text, index, singlestoreTableCreator, bigint } from "drizzle-orm/singlestore-core";
 
 const createTable = singlestoreTableCreator(name => `drive_${name}`);
