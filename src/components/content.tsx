@@ -73,7 +73,7 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                 </div>
 
                 <UploadButton
-                    endpoint={"imageUploader"}
+                    endpoint={"driveVaultUploader"}
                     onClientUploadComplete={() => navigate.refresh()}
                     input={{ folderId }}
                 />
