@@ -2,7 +2,7 @@ import { int, text, index, singlestoreTableCreator, bigint } from "drizzle-orm/s
 
 const createTable = singlestoreTableCreator(name => `drive_${name}`);
 
-export const files = createTable("files_table", {
+export const filesTable = createTable("files_table", {
     id: bigint("id", { mode: "number", unsigned: true }).primaryKey().autoincrement(),
     parent: bigint("parent", { mode: "number", unsigned: true }).notNull(),
     size: int("size").notNull(),
@@ -10,8 +10,11 @@ export const files = createTable("files_table", {
     url: text("url").notNull(),
 }, f => [index("parent_index").on(f.parent)])
 
-export const folders = createTable("folders_table", {
+export const foldersTable = createTable("folders_table", {
     id: bigint("id", { mode: "number", unsigned: true }).primaryKey().autoincrement(),
     parent: bigint("parent", { mode: "number", unsigned: true }),
     name: text("name").notNull(),
 });
+
+export type DbFileType = typeof filesTable.$inferSelect;
+export type DbFolderType = typeof foldersTable.$inferSelect;

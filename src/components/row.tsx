@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { FileIcon, Folder } from 'lucide-react';
-import type { files, folders } from "../server/db/schema";
+import type { DbFileType, DbFolderType } from "../server/db/schema";
 
 interface FileRowProps {
-    file: typeof files.$inferSelect
+    file: DbFileType
 }
 
 export const FileRow = ({ file }: FileRowProps) => {
@@ -30,7 +30,7 @@ export const FileRow = ({ file }: FileRowProps) => {
 
 
 interface FolderRowProps {
-    folder: typeof folders.$inferSelect
+    folder: DbFolderType
 }
 
 export const FolderRow = ({ folder }: FolderRowProps) => {

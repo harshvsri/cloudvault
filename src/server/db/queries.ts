@@ -1,36 +1,53 @@
 import { eq } from "drizzle-orm";
 import { db } from "~/server/db"
-import { files as filesTable, folders as foldersTable } from "~/server/db/schema"
+import { filesTable, foldersTable } from "~/server/db/schema"
 
-export const getAllParents = async (folderId: number) => {
-    const parents = [];
+export const QUERIES = {
+    getAllParents: async function(folderId: number) {
+        const parents = [];
 
-    let currFolderId: number | null = folderId;
-    while (currFolderId != null) {
-        const folder = await db
+        let currFolderId: number | null = folderId;
+        while (currFolderId != null) {
+            const folder = await db
+                .select()
+                .from(foldersTable)
+                .where(eq(foldersTable.id, folderId))
+
+            if (!folder[0]) {
+                throw new Error("No parent found");
+            }
+            parents.unshift(folder[0]);
+            currFolderId = folder[0].id ?? null;
+        }
+        return parents;
+    },
+
+    getFiles: function(parsedFolderId: number) {
+        return db
+            .select()
+            .from(filesTable)
+            .where(eq(filesTable.parent, parsedFolderId));
+    },
+
+    getFolders: function(parsedFolderId: number) {
+        return db
             .select()
             .from(foldersTable)
-            .where(eq(foldersTable.id, folderId))
-
-        if (!folder[0]) {
-            throw new Error("No parent found");
-        }
-        parents.unshift(folder[0]);
-        currFolderId = folder[0].id ?? null;
+            .where(eq(foldersTable.parent, parsedFolderId));
     }
-    return parents;
 }
 
-export const getFiles = (parsedFolderId: number) => {
-    return db
-        .select()
-        .from(filesTable)
-        .where(eq(filesTable.parent, parsedFolderId));
+type CreateFIleParams = {
+    file: {
+        name: string,
+        size: number,
+        url: string,
+        parent: number
+    };
+    userId: string;
 }
-
-export const getFolders = (parsedFolderId: number) => {
-    return db
-        .select()
-        .from(foldersTable)
-        .where(eq(foldersTable.parent, parsedFolderId));
+export const MUTATIONS = {
+    createFile: async function({ file, userId }: CreateFIleParams) {
+        return await db.insert(filesTable).values(file);
+    }
 }
