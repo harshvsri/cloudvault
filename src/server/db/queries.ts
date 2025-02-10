@@ -34,6 +34,13 @@ export const QUERIES = {
             .select()
             .from(foldersTable)
             .where(eq(foldersTable.parent, parsedFolderId));
+    },
+
+    getFolderById: function(folderId: number) {
+        return db
+            .selectDistinct()
+            .from(foldersTable)
+            .where(eq(foldersTable.id, folderId))
     }
 }
 

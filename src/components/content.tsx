@@ -11,9 +11,10 @@ interface ContentProps {
     files: DbFileType[];
     folders: DbFolderType[];
     parents: DbFolderType[];
+    folderId: number;
 }
 
-export default function DriveContent({ files, folders, parents }: ContentProps) {
+export default function DriveContent({ files, folders, parents, folderId }: ContentProps) {
     const navigate = useRouter();
 
     return (
@@ -73,9 +74,8 @@ export default function DriveContent({ files, folders, parents }: ContentProps) 
 
                 <UploadButton
                     endpoint={"imageUploader"}
-                    onClientUploadComplete={() => {
-                        navigate.refresh();
-                    }}
+                    onClientUploadComplete={() => navigate.refresh()}
+                    input={{ folderId }}
                 />
             </div>
         </div>

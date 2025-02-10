@@ -21,5 +21,5 @@ export default async function Drive({ params }: DriveProps) {
         QUERIES.getFolders(parsedFolderId)
     ]);
 
-    return <DriveContent files={files} folders={folders} parents={parents} />
+    return <DriveContent files={files} folders={folders} parents={parents} folderId={parsedFolderId} />
 }
