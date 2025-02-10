@@ -5,9 +5,9 @@ import { type Metadata } from "next";
 import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
-    title: "Drive",
+    title: "CloudVault",
     description: "The cloud storage you wanted.",
-    icons: [{ rel: "icon", url: "/favicon.ico" }],
+    icons: [{ rel: "icon", url: "/cloudvault.png" }],
 };
 
 export default function RootLayout({

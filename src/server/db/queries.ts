@@ -48,6 +48,6 @@ type CreateFIleParams = {
 }
 export const MUTATIONS = {
     createFile: async function({ file, userId }: CreateFIleParams) {
-        return await db.insert(filesTable).values(file);
+        return await db.insert(filesTable).values({ ...file, ownerId: userId });
     }
 }

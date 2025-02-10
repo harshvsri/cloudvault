@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import DriveContent from "~/components/content";
 import { QUERIES } from "~/server/db/queries";
 
@@ -10,7 +11,7 @@ export default async function Drive({ params }: DriveProps) {
 
     const parsedFolderId = parseInt(param.folderId);
     if (isNaN(parsedFolderId)) {
-        return <h1>404: INVALID FOLDER ID</h1>
+        notFound();
     }
 
     //FIX: It's taking too much time to run getAllParents, i mean toooooo much so f**k it.
