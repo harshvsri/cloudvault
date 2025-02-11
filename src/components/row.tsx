@@ -3,6 +3,7 @@ import { FileIcon, Folder, Trash2Icon } from 'lucide-react';
 import type { DbFileType, DbFolderType } from "../server/db/schema";
 import { Button } from './ui/button';
 import { deleteFile } from '~/server/actions';
+import { formatFileSize } from '~/lib/utils';
 
 interface FileRowProps {
     file: DbFileType
@@ -22,7 +23,7 @@ export const FileRow = ({ file }: FileRowProps) => {
                         {file.name}
                     </Link>
                 </div>
-                <div className="col-span-3 text-gray-400">{file.size}</div>
+                <div className="col-span-3 text-gray-400">{formatFileSize(file.size)}</div>
                 <div className="col-span-2 text-gray-400">File</div>
                 <div className="col-span-1 text-gray-400">
                     <Button
@@ -57,8 +58,8 @@ export const FolderRow = ({ folder }: FolderRowProps) => {
                         {folder.name}
                     </Link>
                 </div>
-                <div className="col-span-3 text-gray-400">Folder</div>
                 <div className="col-span-3 text-gray-400">--</div>
+                <div className="col-span-3 text-gray-400">Folder</div>
             </div>
         </li >
     );

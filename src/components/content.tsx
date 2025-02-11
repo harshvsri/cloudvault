@@ -18,13 +18,13 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
     const navigate = useRouter();
 
     return (
-        <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
+        <div className="min-h-screen bg-black text-white p-8">
             <div className="max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center">
                         <Link
                             href={"/f/1000000001"}
-                            className="text-gray-300 hover:text-white mr-2"
+                            className="text-gray-300 hover:text-blue-400 mr-2"
                         >
                             My Drive
                         </Link>
@@ -54,9 +54,9 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                     </div>
                 </div>
 
-                <div className="bg-gray-800 rounded-lg shadow-xl">
-                    <div className="px-6 py-4 border-b border-gray-700">
-                        <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-400">
+                <div className="bg-black rounded-lg shadow-xl">
+                    <div className="px-6 py-4 border-b border-gray-500">
+                        <div className="grid grid-cols-12 gap-4 text-sm font-medium text-white">
                             <div className="col-span-6">Name</div>
                             <div className="col-span-3">Size</div>
                             <div className="col-span-2">Type</div>
@@ -74,6 +74,7 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                 </div>
 
                 <UploadButton
+                    className="mt-6"
                     endpoint={"driveVaultUploader"}
                     onClientUploadComplete={() => navigate.refresh()}
                     input={{ folderId }}
