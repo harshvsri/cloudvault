@@ -23,7 +23,7 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center">
                         <Link
-                            href={"/f/1"}
+                            href={"/f/1000000001"}
                             className="text-gray-300 hover:text-white mr-2"
                         >
                             My Drive
@@ -58,8 +58,9 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                     <div className="px-6 py-4 border-b border-gray-700">
                         <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-400">
                             <div className="col-span-6">Name</div>
-                            <div className="col-span-3">Type</div>
                             <div className="col-span-3">Size</div>
+                            <div className="col-span-2">Type</div>
+                            <div className="col-span-1"></div>
                         </div>
                     </div>
                     <ul>
@@ -78,7 +79,7 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                     input={{ folderId }}
                 />
             </div>
-        </div>
+        </div >
     )
 }
 

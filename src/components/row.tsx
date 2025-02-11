@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { FileIcon, Folder } from 'lucide-react';
+import { FileIcon, Folder, Trash2Icon } from 'lucide-react';
 import type { DbFileType, DbFolderType } from "../server/db/schema";
+import { Button } from './ui/button';
+import { deleteFile } from '~/server/actions';
 
 interface FileRowProps {
     file: DbFileType
@@ -20,8 +22,17 @@ export const FileRow = ({ file }: FileRowProps) => {
                         {file.name}
                     </Link>
                 </div>
-                <div className="col-span-3 text-gray-400">File</div>
                 <div className="col-span-3 text-gray-400">{file.size}</div>
+                <div className="col-span-2 text-gray-400">File</div>
+                <div className="col-span-1 text-gray-400">
+                    <Button
+                        variant="ghost"
+                        aria-label='deleteFile'
+                        onClick={() => deleteFile(file.id)}
+                    >
+                        <Trash2Icon size={20} />
+                    </Button>
+                </div>
             </div>
         </li>
     );
