@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { ClerkProvider } from '@clerk/nextjs'
 import { PostHogProvider } from "./_providers/posthog";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
     title: "CloudVault",
@@ -19,6 +20,7 @@ export default function RootLayout({
                 <body>
                     <PostHogProvider>
                         {children}
+                        <SpeedInsights />
                     </PostHogProvider>
                 </body>
             </html>
