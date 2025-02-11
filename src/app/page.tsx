@@ -1,10 +1,14 @@
 "use client";
 import { Button } from "~/components/ui/button"
 import { ArrowRight, Cloud, Lock, Zap } from "lucide-react"
-import { useRouter } from "next/navigation";
+import { SignedOut, SignInButton, useAuth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-    const navigate = useRouter();
+    const { userId } = useAuth();
+    if (userId) {
+        redirect("/drive");
+    }
 
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -30,15 +34,20 @@ export default function Home() {
                         description="Access your files instantly from anywhere"
                     />
                 </div>
-                <Button
-                    size="lg"
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                    onClick={() => navigate.push("/f/1000000001")}
-                >
-                    Get Started <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+
+                <SignedOut>
+                    <SignInButton forceRedirectUrl={"/drive"}>
+                        <Button
+                            size="lg"
+                            type="submit"
+                            className="bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                            Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                    </SignInButton>
+                </SignedOut>
             </main>
-        </div>
+        </div >
     )
 }
 
@@ -57,4 +66,3 @@ function FeatureCard({ icon, title, description }: FeactureCardProps) {
         </div>
     )
 }
-

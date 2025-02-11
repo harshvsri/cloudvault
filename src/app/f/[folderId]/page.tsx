@@ -8,7 +8,6 @@ interface DriveProps {
 
 export default async function Drive({ params }: DriveProps) {
     const param = await params;
-
     const parsedFolderId = parseInt(param.folderId);
     if (isNaN(parsedFolderId)) {
         notFound();
@@ -18,7 +17,7 @@ export default async function Drive({ params }: DriveProps) {
     const parents: typeof folders = [];
     const [files, folders] = await Promise.all([
         QUERIES.getFiles(parsedFolderId),
-        QUERIES.getFolders(parsedFolderId)
+        QUERIES.getFolders(parsedFolderId),
     ]);
 
     return <DriveContent files={files} folders={folders} parents={parents} folderId={parsedFolderId} />

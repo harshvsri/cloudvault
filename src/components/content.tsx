@@ -23,7 +23,7 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                 <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center">
                         <Link
-                            href={"/f/1000000001"}
+                            href={"/drive"}
                             className="text-gray-300 hover:text-blue-400 mr-2"
                         >
                             My Drive
