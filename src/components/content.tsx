@@ -3,9 +3,11 @@ import { ChevronRight } from "lucide-react";
 import { FileRow, FolderRow } from "../components/row";
 import type { DbFileType, DbFolderType } from "../server/db/schema";
 import Link from "next/link";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, useAuth, UserButton } from "@clerk/nextjs";
 import { UploadButton } from "./uploadthing";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Loader from "./loader";
 
 interface ContentProps {
     files: DbFileType[];
@@ -15,7 +17,18 @@ interface ContentProps {
 }
 
 export default function DriveContent({ files, folders, parents, folderId }: ContentProps) {
-    const navigate = useRouter();
+    const router = useRouter();
+    const { userId, isLoaded } = useAuth();
+
+    useEffect(() => {
+        if (!userId) {
+            router.replace("/");
+        }
+    }, [userId, router]);
+
+    if (!isLoaded) {
+        return <Loader />;
+    }
 
     return (
         <div className="min-h-screen bg-black p-8 text-white">
@@ -39,9 +52,6 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
 
                     {/* Auth using clerk */}
                     <div>
-                        <SignedOut>
-                            <SignInButton />
-                        </SignedOut>
                         <SignedIn>
                             <UserButton />
                         </SignedIn>
@@ -70,7 +80,7 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
                 <UploadButton
                     className="mt-6"
                     endpoint={"driveVaultUploader"}
-                    onClientUploadComplete={() => navigate.refresh()}
+                    onClientUploadComplete={() => router.refresh()}
                     input={{ folderId }}
                 />
             </div>
