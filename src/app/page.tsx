@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "~/components/ui/button"
-import { ArrowRight, Cloud, Lock, Zap } from "lucide-react"
+import { Button } from "~/components/ui/button";
+import { ArrowRight, Cloud, Lock, Zap } from "lucide-react";
 import { SignedOut, SignInButton, useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -11,13 +11,15 @@ export default function Home() {
     }
 
     return (
-        <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-            <main className="max-w-4xl mx-auto text-center">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 mb-6">
+        <div className="flex min-h-screen flex-col items-center justify-center bg-black px-4 text-white sm:px-6 lg:px-8">
+            <main className="mx-auto max-w-4xl text-center">
+                <h1 className="mb-6 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl md:text-6xl">
                     CloudVault
                 </h1>
-                <p className="text-xl sm:text-2xl md:text-3xl mb-8 text-gray-300">Secure, Fast, and Reliable Cloud Storage</p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <p className="mb-8 text-xl text-gray-300 sm:text-2xl md:text-3xl">
+                    Secure, Fast, and Reliable Cloud Storage
+                </p>
+                <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3">
                     <FeatureCard
                         icon={<Cloud className="h-10 w-10 text-blue-400" />}
                         title="Cloud-Native"
@@ -37,32 +39,28 @@ export default function Home() {
 
                 <SignedOut>
                     <SignInButton forceRedirectUrl={"/drive"}>
-                        <Button
-                            size="lg"
-                            type="submit"
-                            className="bg-blue-600 hover:bg-blue-700 text-white"
-                        >
+                        <Button size="lg" type="submit" className="bg-blue-600 text-white hover:bg-blue-700">
                             Get Started <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                     </SignInButton>
                 </SignedOut>
             </main>
-        </div >
-    )
+        </div>
+    );
 }
 
 interface FeactureCardProps {
     icon: React.ReactNode;
     title: string;
-    description: string
-};
+    description: string;
+}
 
 function FeatureCard({ icon, title, description }: FeactureCardProps) {
     return (
-        <div className="bg-gray-900 p-6 rounded-lg">
-            <div className="flex justify-center mb-4">{icon}</div>
-            <h2 className="text-xl font-semibold mb-2">{title}</h2>
+        <div className="rounded-lg bg-gray-900 p-6">
+            <div className="mb-4 flex justify-center">{icon}</div>
+            <h2 className="mb-2 text-xl font-semibold">{title}</h2>
             <p className="text-gray-400">{description}</p>
         </div>
-    )
+    );
 }

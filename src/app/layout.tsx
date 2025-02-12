@@ -1,9 +1,9 @@
 import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import { PostHogProvider } from "./_providers/posthog";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
     title: "CloudVault",
@@ -11,9 +11,7 @@ export const metadata: Metadata = {
     icons: [{ rel: "icon", url: "/cloudvault.png" }],
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <ClerkProvider>
             <html lang="en" className={`${GeistSans.variable}`}>
@@ -24,6 +22,6 @@ export default function RootLayout({
                     </PostHogProvider>
                 </body>
             </html>
-        </ClerkProvider >
+        </ClerkProvider>
     );
 }

@@ -19,9 +19,11 @@ export const ourFileRouter = {
             maxFileCount: 1,
         },
     })
-        .input(z.object({
-            folderId: z.number()
-        }))
+        .input(
+            z.object({
+                folderId: z.number(),
+            }),
+        )
         // Set permissions and file types for this FileRoute
         .middleware(async ({ input }) => {
             // This code runs on your server before upload
@@ -34,7 +36,7 @@ export const ourFileRouter = {
             // Whatever is returned here is accessible in onUploadComplete as `metadata`
             return {
                 userId: user.userId,
-                folderId
+                folderId,
             };
         })
         .onUploadComplete(async ({ metadata, file }) => {
@@ -49,8 +51,8 @@ export const ourFileRouter = {
                     url: file.url,
                     parent: metadata.folderId[0]!.id,
                 },
-                userId: metadata.userId
-            })
+                userId: metadata.userId,
+            });
 
             // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
             return { uploadedBy: metadata.userId };
