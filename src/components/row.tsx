@@ -46,7 +46,7 @@ export const FolderRow = ({ folder }: FolderRowProps) => {
                 <div className="col-span-6 flex items-center">
                     <Link
                         prefetch={true}
-                        href={`/f/${folder.id}`}
+                        href={`/drive/${folder.id}`}
                         className="flex items-center text-gray-100 hover:text-blue-400"
                     >
                         <Folder className="mr-3" size={20} />
