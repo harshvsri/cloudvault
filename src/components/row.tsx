@@ -44,7 +44,11 @@ export const FolderRow = ({ folder }: FolderRowProps) => {
         <li key={folder.id} className="hover:bg-gray-750 border-b border-gray-700 px-6 py-4">
             <div className="grid grid-cols-12 items-center gap-4">
                 <div className="col-span-6 flex items-center">
-                    <Link href={`/f/${folder.id}`} className="flex items-center text-gray-100 hover:text-blue-400">
+                    <Link
+                        prefetch={true}
+                        href={`/f/${folder.id}`}
+                        className="flex items-center text-gray-100 hover:text-blue-400"
+                    >
                         <Folder className="mr-3" size={20} />
                         {folder.name}
                     </Link>

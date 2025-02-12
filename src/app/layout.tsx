@@ -3,7 +3,6 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { PostHogProvider } from "./_providers/posthog";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
     title: "CloudVault",
@@ -15,11 +14,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <ClerkProvider>
             <html lang="en" className={`${GeistSans.variable}`}>
-                <body>
-                    <PostHogProvider>
-                        {children}
-                        <SpeedInsights />
-                    </PostHogProvider>
+                <body className="min-h-screen bg-black text-white">
+                    <PostHogProvider>{children}</PostHogProvider>
                 </body>
             </html>
         </ClerkProvider>

@@ -11,10 +11,10 @@ export const QUERIES = {
             const folder = await db.select().from(foldersTable).where(eq(foldersTable.id, folderId));
 
             if (!folder[0]) {
-                throw new Error("No parent found");
+                throw new Error("Invalid folderId");
             }
             parents.unshift(folder[0]);
-            currFolderId = folder[0].id ?? null;
+            currFolderId = folder[0].parent ?? null;
         }
         return parents;
     },
