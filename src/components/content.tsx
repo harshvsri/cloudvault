@@ -6,8 +6,8 @@ import Link from "next/link";
 import { SignedIn, useAuth, UserButton } from "@clerk/nextjs";
 import { UploadButton } from "./uploadthing";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Loader from "./loader";
+import Root from "~/app/page";
 
 interface ContentProps {
     files: DbFileType[];
@@ -20,15 +20,8 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
     const router = useRouter();
     const { userId, isLoaded } = useAuth();
 
-    useEffect(() => {
-        if (!userId) {
-            router.replace("/");
-        }
-    }, [userId, router]);
-
-    if (!isLoaded) {
-        return <Loader />;
-    }
+    if (!isLoaded) return <Loader />;
+    if (!userId) return <Root />
 
     return (
         <div className="min-h-screen bg-black p-8 text-white">
