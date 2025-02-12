@@ -5,7 +5,7 @@ import { SignedOut, SignInButton } from "@clerk/nextjs";
 export default function Home() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-black px-4 text-white sm:px-6 lg:px-8">
-            <main className="mx-auto py-5 max-w-4xl text-center">
+            <main className="mx-auto max-w-4xl py-5 text-center">
                 <h1 className="mb-6 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl md:text-6xl">
                     CloudVault
                 </h1>

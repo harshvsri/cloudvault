@@ -13,7 +13,11 @@ export default async function Drive({ params }: DriveProps) {
         notFound();
     }
 
-    const [files, folders] = await Promise.all([QUERIES.getFiles(parsedFolderId), QUERIES.getFolders(parsedFolderId)]);
+    const [files, folders, parents] = await Promise.all([
+        QUERIES.getFiles(parsedFolderId),
+        QUERIES.getFolders(parsedFolderId),
+        QUERIES.getAllParents(parsedFolderId)
+    ]);
 
-    return <DriveContent files={files} folders={folders} parents={[]} folderId={parsedFolderId} />;
+    return <DriveContent files={files} folders={folders} parents={parents} folderId={parsedFolderId} />;
 }

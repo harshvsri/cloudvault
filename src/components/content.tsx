@@ -7,7 +7,7 @@ import { SignedIn, useAuth, UserButton } from "@clerk/nextjs";
 import { UploadButton } from "./uploadthing";
 import { useRouter } from "next/navigation";
 import Loader from "./loader";
-import Root from "~/app/page";
+import { useEffect } from "react";
 
 interface ContentProps {
     files: DbFileType[];
@@ -20,20 +20,24 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
     const router = useRouter();
     const { userId, isLoaded } = useAuth();
 
+    useEffect(() => {
+        if (!userId) {
+            router.replace("/");
+        }
+    }, [userId]);
     if (!isLoaded) return <Loader />;
-    if (!userId) return <Root />
 
-    return (
+    return !userId ? null : (
         <div className="min-h-screen bg-black p-8 text-white">
             <div className="mx-auto max-w-6xl">
                 <div className="mb-6 flex items-center justify-between">
                     <div className="flex items-center">
-                        <Link href={"/drive"} className="mr-2 text-gray-300 hover:text-blue-400">
+                        <Link href={`/f/${parents[0]?.id}`} className="mr-2 text-gray-300 hover:text-blue-400">
                             My Drive
                         </Link>
 
                         {/* Handling breadcrumbs */}
-                        {parents.map((parent) => (
+                        {parents.slice(1).map((parent) => (
                             <div key={parent.id} className="flex items-center">
                                 <ChevronRight className="mx-2 text-gray-500" size={16} />
                                 <Link href={`/f/${parent.id}`} className="text-gray-300 hover:text-white">

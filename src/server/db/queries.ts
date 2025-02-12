@@ -3,38 +3,38 @@ import { db } from "~/server/db";
 import { filesTable, foldersTable } from "~/server/db/schema";
 
 export const QUERIES = {
-    getAllParents: async function (folderId: number) {
+    getAllParents: async function(folderId: number) {
         const parents = [];
 
         let currFolderId: number | null = folderId;
         while (currFolderId != null) {
-            const folder = await db.select().from(foldersTable).where(eq(foldersTable.id, folderId));
+            const [currFolder] = await db.select().from(foldersTable).where(eq(foldersTable.id, currFolderId));
 
-            if (!folder[0]) {
+            if (!currFolder) {
                 throw new Error("Invalid folderId");
             }
-            parents.unshift(folder[0]);
-            currFolderId = folder[0].parent ?? null;
+            parents.unshift(currFolder);
+            currFolderId = currFolder.parent ?? null;
         }
         return parents;
     },
 
-    getUserRootFolder: function (userId: string) {
+    getUserRootFolderId: function(userId: string) {
         return db
-            .select()
+            .select({ id: foldersTable.id })
             .from(foldersTable)
             .where(and(eq(foldersTable.ownerId, userId), isNull(foldersTable.parent)));
     },
 
-    getFiles: function (parsedFolderId: number) {
+    getFiles: function(parsedFolderId: number) {
         return db.select().from(filesTable).where(eq(filesTable.parent, parsedFolderId)).orderBy(filesTable.name);
     },
 
-    getFolders: function (parsedFolderId: number) {
+    getFolders: function(parsedFolderId: number) {
         return db.select().from(foldersTable).where(eq(foldersTable.parent, parsedFolderId)).orderBy(foldersTable.name);
     },
 
-    getFolderById: function (folderId: number) {
+    getFolderById: function(folderId: number) {
         return db.selectDistinct().from(foldersTable).where(eq(foldersTable.id, folderId));
     },
 };
@@ -49,11 +49,11 @@ type CreateFIleParams = {
     userId: string;
 };
 export const MUTATIONS = {
-    createFile: async function ({ file, userId }: CreateFIleParams) {
+    createFile: async function({ file, userId }: CreateFIleParams) {
         return await db.insert(filesTable).values({ ...file, ownerId: userId });
     },
 
-    createRootFolder: async function (ownerId: string) {
+    createRootFolder: async function(ownerId: string) {
         const [root] = await db
             .insert(foldersTable)
             .values({

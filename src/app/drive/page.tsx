@@ -8,10 +8,10 @@ export default async function DrivePage() {
         redirect("/");
     }
 
-    const [rootFolder] = await QUERIES.getUserRootFolder(userId);
+    const [rootFolder] = await QUERIES.getUserRootFolderId(userId);
     if (!rootFolder) {
-        const rootFolderId = await MUTATIONS.createRootFolder(userId);
-        redirect(`/f/${rootFolderId.id}`);
+        const rootFolder = await MUTATIONS.createRootFolder(userId);
+        redirect(`/f/${rootFolder.id}`);
     }
 
     redirect(`/f/${rootFolder.id}`);
