@@ -21,10 +21,10 @@ export default function DriveContent({ files, folders, parents, folderId }: Cont
     const { userId, isLoaded } = useAuth();
 
     useEffect(() => {
-        if (!userId) {
+        if (isLoaded && !userId) {
             router.replace("/");
         }
-    }, [userId]);
+    }, [userId, isLoaded]);
     if (!isLoaded) return <Loader />;
 
     return !userId ? null : (
