@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FileIcon, Folder, Trash2Icon } from "lucide-react";
 import type { DbFileType, DbFolderType } from "../server/db/schema";
 import { Button } from "./ui/button";
-import { deleteFile } from "~/server/actions";
+import { deleteFile, deleteFolder } from "~/server/actions";
 import { formatFileSize } from "~/lib/utils";
 
 interface FileRowProps {
@@ -54,7 +54,12 @@ export const FolderRow = ({ folder }: FolderRowProps) => {
                     </Link>
                 </div>
                 <div className="col-span-3 text-gray-400">--</div>
-                <div className="col-span-3 text-gray-400">Folder</div>
+                <div className="col-span-2 text-gray-400">Folder</div>
+                <div className="col-span-1 text-gray-400">
+                    <Button variant="ghost" aria-label="deleteFile" onClick={() => deleteFolder(folder.id)}>
+                        <Trash2Icon size={20} />
+                    </Button>
+                </div>
             </div>
         </li>
     );

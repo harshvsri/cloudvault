@@ -44,6 +44,7 @@ type CreateFIleParams = {
         name: string;
         size: number;
         url: string;
+        ufsKey: string;
         parent: number;
     };
     userId: string;
@@ -67,7 +68,7 @@ export const MUTATIONS = {
             throw new Error("Error while creating root folder");
         }
 
-        const defaultFolders = ["Trash", "Archive", "Images", "Videos"].map((name) => ({
+        const defaultFolders = ["Images", "Videos"].map((name) => ({
             ownerId,
             name,
             parent: root.id,

@@ -12,6 +12,7 @@ export const filesTable = createTable(
         size: int("size").notNull(),
         name: text("name").notNull(),
         url: text("url").notNull(),
+        ufsKey: text("ufs_key").notNull(),
         createdAt: timestamp("created_at").notNull().defaultNow(),
     },
     (f) => [index("parent_index").on(f.parent), index("owner_id_index").on(f.ownerId)],
