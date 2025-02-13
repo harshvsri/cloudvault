@@ -23,7 +23,7 @@ export async function deleteFile(fileId: number) {
     }
 
     const utAPI = new UTApi();
-    const { success, deletedCount } = await utAPI.deleteFiles(file.url.replace("https://utfs.io/f/", ""));
+    const { success, deletedCount } = await utAPI.deleteFiles(file.ufsKey);
     console.log(`[${success}]: ${deletedCount} files deleted.`);
 
     const dbResult = await db.delete(filesTable).where(eq(filesTable.id, fileId));
